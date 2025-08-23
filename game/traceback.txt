@@ -1,0 +1,29 @@
+﻿I'm sorry, but an uncaught exception occurred.
+
+While running game code:
+Exception: Could not find a statement to warp to. (cyno.rpy:327)
+
+-- Full Traceback ------------------------------------------------------------
+
+Traceback (most recent call last):
+  File "renpy/common/00start.rpy", line 216, in script
+    python hide:
+  File "renpy/ast.py", line 1187, in execute
+    renpy.python.py_exec_bytecode(self.code.bytecode, self.hide, store=self.store)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/python.py", line 1260, in py_exec_bytecode
+    exec(bytecode, globals, locals)
+    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "renpy/common/00start.rpy", line 216, in <module>
+    python hide:
+  File "renpy/common/00start.rpy", line 217, in _execute_python_hide
+    renpy.warp.warp()
+    ~~~~~~~~~~~~~~~^^
+  File "renpy/warp.py", line 140, in warp
+    raise Exception("Could not find a statement to warp to. ({})".format(spec))
+Exception: Could not find a statement to warp to. (cyno.rpy:327)
+
+Linux-6.15.8-arch1-2-x86_64-with-glibc2.42 x86_64
+Ren'Py 8.4.1.25072401
+p2u part 142 1.0
+Sat Aug  2 17:39:10 2025
