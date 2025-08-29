@@ -495,4 +495,4 @@ label day1afternoon:
         "Scara":
             call day1hangoutscara from _call_day1hangoutscara
 
-    call dayend
+    call dayend from _call_dayend

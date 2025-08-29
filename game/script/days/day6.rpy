@@ -8,7 +8,7 @@ label day6morning:
     scene entrance day
     with fade
 
-    call epilogue
+    call epilogue from _call_epilogue
 
 label day6afternoon:
     stop music fadeout 1.0
@@ -618,6 +618,6 @@ label .afterpresentation:
     Y "{i}At the end of the day, all of my friends have left. Everyone seems to have their beliefs split.{/i}"
     Y "{i}I am now met at a crossroads, as my time at this school draws to an end. All I can do now is hope for the best for tomorrow.{/i}"
 
-    call dayend
+    call dayend from _call_dayend_5
 
 # cyno scara miku lyney naoto sparrow

@@ -581,7 +581,7 @@ label day5afternoon:
     show screen top_right_ui(5, "After School")
     with fade
 
-    call hangout
+    call hangout from _call_hangout_3
 
 label day5evening:
     stop music fadeout 1.0
@@ -591,6 +591,7 @@ label day5evening:
     scene roof evening
     if bad_ending:
         show screen vignette_screen
+        show static onlayer static_layer
     else:
         queue music main
 
@@ -617,17 +618,34 @@ label day5evening:
         menu .bad_ending_search:
             set bad_ending_searched
 
+
             "student council office":
+                $ salpha = 0.4 + 0.1 * len(bad_ending_searched)
                 scene office evening with fade:
                     matrixcolor SaturationMatrix(1 - 0.2 * len(bad_ending_searched))
+                show silhouette:
+                    xalign 0.0
+                    yalign 0.0
+
                 pass
             "campus entrance":
+                $ salpha = 0.4 + 0.1 * len(bad_ending_searched)
                 scene entrance evening with fade:
                     matrixcolor SaturationMatrix(1 - 0.2 * len(bad_ending_searched))
+                show silhouette:
+                    xalign 0.0
+                    yalign 1.0
+
                 pass
             "library":
+                $ salpha = 0.4 + 0.1 * len(bad_ending_searched)
                 scene library with fade:
                     matrixcolor SaturationMatrix(1 - 0.2 * len(bad_ending_searched))
+                show silhouette:
+                    xalign 1.0
+                    yalign 1.0
+                    xzoom -1.0
+
                 pass
         
         Y "{i}the atmosphere here feels heavy.{/i}"
@@ -642,6 +660,10 @@ label day5evening:
 
         scene hallway evening:
             matrixcolor SaturationMatrix(0.4)
+        $ salpha = 0.7
+        show silhouette:
+            xalign 0.5
+            yalign 0.5
 
         # [BG change - hallway, silhouette appearance looks more obvious now, still same effect as before, maybe more frequent and intensified]
         
@@ -667,6 +689,9 @@ label day5evening:
 
         # [BG change to silhouette glitching closer/enlarging]
 
+        show silhouette at Glitch():
+            zoom 1.0
+
         menu:
             "tell me what to do!":
                 pass
@@ -681,6 +706,9 @@ label day5evening:
         
         # [BG change to silhouette glitching closer/enlarging]
 
+        show silhouette at Glitch():
+            zoom 1.5
+
         menu:
             "no! I'll still remember them.":
                 pass
@@ -694,6 +722,9 @@ label day5evening:
         Q "or lose yourself forever."
         
         # [BG change to silhouette glitching closer/enlarging, this instance it should be near towards covering the entire screen]
+
+        show silhouette at Glitch():
+            zoom 2.0
         
         #Y "{i}the presence of the silhouette is suffocating, I feel like I'm losing all control{/i}"
         
@@ -705,6 +736,10 @@ label day5evening:
         Y "{i}.{/i}"
 
         Q "try again. someone is still waiting for you."
+
+        scene black
+        hide screen top_right_ui
+        with fade
 
         ">> you have reached the failed ending."
 
@@ -1030,6 +1065,6 @@ label day5evening:
         N "Not to scare you or anything! I'm just thinking out loud, ignore me."
         N "Good night."
 
-        call dayend
+        call dayend from _call_dayend_4
 
 # cyno scara miku lyney naoto sparrow

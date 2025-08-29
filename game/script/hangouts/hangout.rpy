@@ -11,20 +11,20 @@ label hangout:
         "Cyno":
             stop music fadeout 1.0
             queue music hangout
-            call hangoutcyno
+            call hangoutcyno from _call_hangoutcyno
         "Miku":
             stop music fadeout 1.0
             queue music hangout
-            call hangoutmiku
+            call hangoutmiku from _call_hangoutmiku
         "Lyney":
             stop music fadeout 1.0
             queue music hangout
-            call hangoutlyney
+            call hangoutlyney from _call_hangoutlyney
         "Naoto":
             stop music fadeout 1.0
             queue music hangout
-            call hangoutnaoto
+            call hangoutnaoto from _call_hangoutnaoto
         "Scara":
             stop music fadeout 1.0
             queue music hangout
-            call hangoutscara
+            call hangoutscara from _call_hangoutscara

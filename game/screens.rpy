@@ -98,11 +98,11 @@ style frame:
 screen say(who, what):
     python:
         import re
-        nwhat = re.sub(r"(?i)(lyney)", r"{color=" + lyney.colour + r"}\1{/color}", what)
-        nwhat = re.sub(r"(?i)(cyno)", r"{color=" + cyno.colour + r"}\1{/color}", nwhat)
-        nwhat = re.sub(r"(?i)(miku)", r"{color=" + miku.colour + r"}\1{/color}", nwhat)
-        nwhat = re.sub(r"(?i)(scara)", r"{color=" + scara.colour + r"}\1{/color}", nwhat)
-        nwhat = re.sub(r"(?i)(naoto)", r"{color=" + naoto.colour + r"}\1{/color}", nwhat)
+        nwhat = re.sub(r"(?i)(lyney+)", r"{color=" + lyney.colour + r"}\1{/color}", what)
+        nwhat = re.sub(r"(?i)(cyno+)", r"{color=" + cyno.colour + r"}\1{/color}", nwhat)
+        nwhat = re.sub(r"(?i)(miku+)", r"{color=" + miku.colour + r"}\1{/color}", nwhat)
+        nwhat = re.sub(r"(?i)(scara+)", r"{color=" + scara.colour + r"}\1{/color}", nwhat)
+        nwhat = re.sub(r"(?i)(naoto+)", r"{color=" + naoto.colour + r"}\1{/color}", nwhat)
 
     window:
         id "window"
@@ -1548,7 +1548,30 @@ screen top_right_ui(day, time):
     add Text(f"Day {day}  |  {["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"][day-1]}", font="NeoDunggeunmoPro-Regular.ttf", size=45, color="#004d7d") at ui_daylabel
     add Text(time, font="NeoDunggeunmoPro-Regular.ttf", size=50, outlines=[ (absolute(3), "#004d7d", absolute(0), absolute(0)) ]) at ui_timeday
 
-define config.layers = [ 'master', 'vignette_layer', 'transient', 'screens', 'overlay' ]
+screen poker_ui(pot, yourchips, cynochips, check):
+    add Text(f"Pot: {pot}", font="NeoDunggeunmoPro-Regular.ttf", size=45):
+        xanchor 1.0
+        xpos 0.98
+        yalign 0.8
+
+    add Text(f"Your chips: {yourchips}", font="NeoDunggeunmoPro-Regular.ttf", size=45):
+        xanchor 1.0
+        xpos 0.98
+        yalign 0.85
+
+    add Text("{color=" + cyno.colour + "}Cyno's" + "{/color} chips: " + f"{cynochips}", font="NeoDunggeunmoPro-Regular.ttf", size=45):
+        xanchor 1.0
+        xpos 0.98
+        yalign 0.9
+
+    add Text(f"Check value: {check}", font="NeoDunggeunmoPro-Regular.ttf", size=45):
+        xanchor 1.0
+        xpos 0.98
+        yalign 0.95
+
+
+
+define config.layers = [ 'master', 'vignette_layer', 'static_layer', 'transient', 'screens', 'overlay' ]
 # Vignette
 screen vignette_screen():
     layer "vignette_layer"

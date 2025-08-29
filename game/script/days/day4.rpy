@@ -753,8 +753,8 @@ label day4afternoon:
     show screen top_right_ui(4, "After School")
     with fade
 
-    call hangout
+    call hangout from _call_hangout_2
 
-    call dayend
+    call dayend from _call_dayend_3
 
 # cyno scara miku lyney naoto sparrow

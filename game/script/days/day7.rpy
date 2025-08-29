@@ -509,7 +509,7 @@ label day7morning:
             hide scara with dissolve
             jump .endingtalk
 
-    queue music sentimental
+    queue music heartwarming
 
     scene roof day
     show miku at r51

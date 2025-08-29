@@ -43,13 +43,17 @@ init python:
                 checks.append(False)
 
             while not self.isBettingOver(checks):
-                if self.alivePlayers[currPerson]:
+                if self.alivePlayers[currPerson]:                    
                     checkVal = self.checkVal(currPerson)
-                    playerDecision = self.mPlayers[currPerson].getAction(
-                        self.communityCards, self.playerCards[currPerson], checkVal, self.pot)
+
+                    renpy.show_screen('poker_ui', self.pot, self.mPlayers[1].chips, self.mPlayers[0].chips, checkVal)
+                    renpy.with_statement(trans=Dissolve(0.25))
 
                     if self.numAlive() == 1:
                         playerDecision = (1, 0)
+                    else:
+                        playerDecision = self.mPlayers[currPerson].getAction(
+                            self.communityCards, self.playerCards[currPerson], checkVal, self.pot)
 
                     #if currPerson == 0:
                     #    renpy.say(C, str(playerDecision))
@@ -74,18 +78,29 @@ init python:
                                 -checkVal - playerDecision[1])
                             self.pot += checkVal + playerDecision[1]
 
+                    renpy.show_screen('poker_ui', self.pot, self.mPlayers[1].chips, self.mPlayers[0].chips, checkVal)
+                    renpy.with_statement(trans=Dissolve(0.25))
+
                 currPerson = (currPerson + 1) % self.mNumPlayers
 
         def dealCards(self):
             random.shuffle(self.mDeck)
 
             for i in range(self.mNumPlayers):
-                #if i == 1:
+                # if i == 1:
                 #    self.playerCards.append([(1, 3), (2, 3), (3, 3), (4, 3), (5, 3)])
                 #else:
+                
                 self.playerCards.append([])
-                self.playerCards[i].append(self.mDeck.pop())
-                self.playerCards[i].append(self.mDeck.pop())
+                self.playerCards[i].append(tmp := self.mDeck.pop())
+                if i == 1:
+                    renpy.show(cardName(tmp), at_list=[hand1])
+                    renpy.with_statement(trans=Dissolve(0.5))
+
+                self.playerCards[i].append(tmp := self.mDeck.pop())
+                if i == 1:
+                    renpy.show(cardName(tmp), at_list=[hand2])
+                    renpy.with_statement(trans=Dissolve(0.5))
 
         def flush(self, hand):
             counts = [0, 0, 0, 0]
@@ -307,14 +322,27 @@ init python:
 
             self.betting(lastBet=self.mSBlind)
 
-            self.communityCards.append(self.mDeck.pop())
-            self.communityCards.append(self.mDeck.pop())
-            self.communityCards.append(self.mDeck.pop())
+            self.communityCards.append(tmp := self.mDeck.pop())
+            renpy.show(cardName(tmp), at_list=[card1])
+            renpy.with_statement(trans=Dissolve(0.5))
 
+            self.communityCards.append(tmp := self.mDeck.pop())
+            renpy.show(cardName(tmp), at_list=[card2])
+            renpy.with_statement(trans=Dissolve(0.5))
+
+            self.communityCards.append(tmp := self.mDeck.pop())
+            renpy.show(cardName(tmp), at_list=[card3])
+            renpy.with_statement(trans=Dissolve(0.5))
             self.betting()
-            self.communityCards.append(self.mDeck.pop())
+
+            self.communityCards.append(tmp := self.mDeck.pop())
+            renpy.show(cardName(tmp), at_list=[card4])
+            renpy.with_statement(trans=Dissolve(0.5))
             self.betting()
-            self.communityCards.append(self.mDeck.pop())
+
+            self.communityCards.append(tmp := self.mDeck.pop())
+            renpy.show(cardName(tmp), at_list=[card5])
+            renpy.with_statement(trans=Dissolve(0.5))
             self.betting()
 
             winners = self.evalWinner()
@@ -322,7 +350,11 @@ init python:
             for winner in winners:
                 self.mPlayers[winner[0]].changeChips(self.pot//len(winners))
 
-            renpy.say("Dealer", f"{'Cyno' if winner[0] == 0 else 'You'} won, Cyno had {",".join(cardName(i) for i in self.playerCards[0])}")
+            renpy.show(cardName(self.playerCards[0][0]), at_list=[cyno1])
+            renpy.show(cardName(self.playerCards[0][1]), at_list=[cyno2])
+            renpy.with_statement(trans=Dissolve(0.5))
+
+            renpy.say("Dealer", f"{'Cyno' if winner[0] == 0 else 'You'} won!")
 
             self.mDeck += self.communityCards
             for hand in self.playerCards:
@@ -357,23 +389,21 @@ init python:
                 renpy.say(C, "I fold...")
 
             if action[0] == 1:
-                renpy.say(C, "I'll just check then")
+                renpy.say(C, "I'll just check then.")
 
             if action[0] == 2:
                 #raise = renpy.random.randint(0, self.chips)
                 if self.chips >= 1:
                     action = (2, renpy.random.randint(0,self.chips))
-                    renpy.say(C,f"I raise")
+                    renpy.say(C,f"I raise {action[1]}!")
                 else:
                     action = (1,0)
-                    renpy.say(C,"I fold")
+                    renpy.say(C,"I fold...")
                 
             return action
 
     class UserPlayer(Player):
         def getAction(self, communityCards, myCards, checkVal, pot):
-            renpy.say("You", f"On the table there are {", ".join(cardName(i) for i in communityCards)}, you have {",".join(cardName(i) for i in myCards)}, there is {pot} in the pot and {checkVal} is the check value.")
-
             action = renpy.display_menu(items=[
                 ('Fold', (0, 0)),
                 ('Check', (1, 0)),
@@ -382,8 +412,18 @@ init python:
 
             if action[1] == -1:
                 renpy.music.play("sfx/eating.mp3", channel="sound")
+                renpy.hide(cardName(myCards[0]))
+                renpy.with_statement(trans=Dissolve(0.25))
+                renpy.hide(cardName(myCards[1]))
+                renpy.with_statement(trans=Dissolve(0.25))
 
 
+            if action[0] == 2:
+                action = (2, int(renpy.input(f"Raise how much?", allow="1234567890")))
+
+                while action[1] > self.chips:
+                    renpy.say(None, ">> You don't have enough chips for that!")
+                    action = (2, int(renpy.input(f"Raise how much?", allow="1234567890")))
 
             if action[0] == 2:
                 action = (2, int(renpy.input(f"Raise how much? You have {self.chips}")))
@@ -395,22 +435,94 @@ init python:
 
     def cardName(card):
         if card[0] > 10:
-            rank = ["Jack", "Queen", "King"][card[0] - 11]
+            rank = ["jack", "queen", "king"][card[0] - 11]
         elif card[0] == 1:
-            rank = ["Ace"]
+            rank = "ace"
         else:
             rank = str(card[0])
 
-        suit = ["Spades", "Hearts", "Clubs", "Diamonds"][card[1]]
+        suit = ["spades", "hearts", "clubs", "diamonds"][card[1]]
 
-        return f"{rank} of {suit}"
+        return f"{rank}_of_{suit}"
 
+transform card1:
+    zoom 0.5
+    xalign 0.1
+    yalign 0.4
+    rotate -1.0
+
+transform card2:
+    zoom 0.5
+    xalign 0.3
+    yalign 0.4
+    rotate 0.2
+
+transform card3:
+    zoom 0.5
+    xalign 0.5
+    yalign 0.4
+    rotate -1.0
+
+transform card4:
+    zoom 0.5
+    xalign 0.7
+    yalign 0.4
+    rotate -0.5
+
+transform card5:
+    zoom 0.5
+    xalign 0.9
+    yalign 0.4
+    rotate 0.8
+
+transform hand1:
+    zoom 0.55
+    xalign 0.46
+    yalign 1.33
+    rotate -2.0
+
+transform hand2:
+    zoom 0.55
+    xalign 0.58
+    yalign 1.3
+    rotate 3.0
+
+transform cyno1:
+    zoom 0.4
+    xalign 0.42
+    yalign 0.0
+    rotate 2.0
+
+transform cyno2:
+    zoom 0.4
+    xalign 0.54
+    yalign 0.0
+    rotate -3.0
 
 label poker:
+    scene poker
+    show screen poker_ui("", "", "", "")
+    with fade
+
     $ dealer = Dealer([AIPlayer(200), UserPlayer(200)], 0, 5)
 
-    python:
-        while dealer.playRound():
-            continue
-    return
+label round:
+    scene poker with dissolve
 
+    if not dealer.playRound():
+        show screen poker_ui(0, dealer.mPlayers[1].chips, dealer.mPlayers[0].chips, 0)
+
+        ">> The game ended..."
+
+        return
+
+    show screen poker_ui(0, dealer.mPlayers[1].chips, dealer.mPlayers[0].chips, 0)    
+
+    menu:
+        ">> Would you like to play another round?"
+
+        "ya":
+            jump round
+
+        "na":
+            return

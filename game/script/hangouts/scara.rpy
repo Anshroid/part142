@@ -407,7 +407,7 @@ label hangoutscara2:
             show scara fear exclamation
             S "but seriously, I've always wanted this game, how did you know?"
 
-        "an iridescent ring":
+        "a sapphire and diamond ring":
             play sound point
             S "huh, what's this?"
             show scara happy
@@ -432,7 +432,7 @@ label hangoutscara2:
     S "starting to regret your act of kindness now?"
     
     menu:
-        "you say all that but you haven't once stopped holding it.":
+        "you say all that but you haven't once stopped looking at it.":
             show scara angry
             S "shut up! Do you really want me to push you into traffic?"
 

@@ -366,15 +366,27 @@ image prologue:
     zoom 0.70
     yalign -0.0
 
+default salpha = 0.2
+
 image silhouette:
-    "whisper.png"
-    zoom 0.3
+    "silhouette.png"
+    zoom 0.5
+    alpha 0.0
+    ease 2.5 alpha salpha
+    ease 2.5 alpha 0.0
+    repeat
 
-    matrixcolor Matrix([ 1.0, 0.0, 0.0, -1.0,
-                         0.0, 1.0, 0.0, -1.0,
-                         0.0, 0.0, 1.0, -1.0,
-                         0.0, 0.0, 0.0, 1.0, ])
-
+image static:
+    alpha 0.5
+    "static1.png" with Dissolve(0.1)
+    0.1
+    "static2.png" with Dissolve(0.1)
+    0.1
+    "static3.png" with Dissolve(0.1)
+    0.1
+    "static4.png" with Dissolve(0.1)
+    0.1
+    repeat
 
 ## POSITIONS
 

@@ -1,4 +1,6 @@
 label badending:
+    queue music sentimental
+    
     show cyno fear
     C "?!…"
     show miku serious question

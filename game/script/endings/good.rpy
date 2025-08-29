@@ -1042,6 +1042,9 @@ label goodending:
         show cyno neutral
         C "…damn."
         
+        stop music fadeout 1.0
+        queue music hangout
+
         scene casino
         show cyno
         with fade
@@ -1062,10 +1065,14 @@ label goodending:
         show cyno neutral none
         C "if you don't know the rules, then for plot convenience just look them up on google or something."
         
-        call poker
+        call poker from _call_poker
+
+        stop music fadeout 1.0
+        queue music heartwarming
 
         scene city night
         show cyno
+        hide screen poker_ui
         with fade
 
         Y "{i}Me and Cyno walk out of the casino lounge.{/i}"

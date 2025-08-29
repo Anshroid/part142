@@ -4,14 +4,8 @@
 # [\s"]i(?:'[md]|ve|ll)?[\s]|[\s"][Ii](?:[md]|ve|ll)[\s]|["\s]hes\s|\w(?:{/i})?"|nt\s
 
 label start:
-    #call day5
-    #scene casino
-    #show cyno happy
-    #with fade
-
-    #call poker
 label prologue:
-    scene prologue
+    scene prologue with fade
     J "Somewhere, sometime in this new univers…"
     J "ity, this new university that I'm transferring to."
     J "Oh right, my name is Jack Cruise! I am the new exchange student here for-"
@@ -27,7 +21,7 @@ label prologue:
 
     $ i = 1
     while i <= 7:
-        call expression f"day{i}"
+        call expression f"day{i}" from _call_expression_7
         $ i += 1
 
 

@@ -463,7 +463,7 @@ label day2afternoon:
     show screen top_right_ui(2, "After School")
     with fade
 
-    call hangout
+    call hangout from _call_hangout
 
-    call dayend
+    call dayend from _call_dayend_1
 

@@ -844,11 +844,13 @@ label day3afternoon:
     show screen top_right_ui(3, "After School")
     with fade
 
-    call hangout
+    call hangout from _call_hangout_1
 
-    call dayend
+    call dayend from _call_dayend_2
 
 label day3night:
+    queue music ambience
+
     scene room naoto
     show naoto neutral at left
     show screen top_right_ui(3, "Night")
@@ -1061,6 +1063,8 @@ label day3night:
     N "So then, I'll see you tomorrow I suppose."
     show cyno happy
     C "Yup. Good night."
+
+    stop music fadeout 1.0
 
     scene black
     hide screen top_right_ui
