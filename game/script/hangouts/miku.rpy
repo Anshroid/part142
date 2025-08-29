@@ -481,7 +481,7 @@ label epiloguemiku:
     Y "{i}I should choose my words carefully.{/i}"
 
     menu .reconsider:
-        "I'll always be here, and you no longer have to shoulder everything alone. (romance option)":
+        "I'll always be here, and you no longer have to shoulder everything alone.":
             show miku neutral
             M "…then I want to be here with you too. To be someone who can grow with you."
             M "So… will you stay with me, as something more than just a friend?"

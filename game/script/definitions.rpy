@@ -361,6 +361,21 @@ image sheldon:
     "sheldon.png"
     zoom 0.8
 
+image prologue:
+    "bg/prologue.png"
+    zoom 0.70
+    yalign -0.0
+
+image silhouette:
+    "whisper.png"
+    zoom 0.3
+
+    matrixcolor Matrix([ 1.0, 0.0, 0.0, -1.0,
+                         0.0, 1.0, 0.0, -1.0,
+                         0.0, 0.0, 1.0, -1.0,
+                         0.0, 0.0, 0.0, 1.0, ])
+
+
 ## POSITIONS
 
 transform r51:

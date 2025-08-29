@@ -1202,6 +1202,8 @@ label goodending:
         C "partner…"
         show cyno happy none
         C "that's the best thing anyone's ever said to me."
+        stop music fadeout 1.0
+        queue music heartwarming
         show cyno happy heart
         C "I… I love you."
         show cyno fear none
@@ -1226,10 +1228,9 @@ label goodending:
         
         menu:
             "cyno DOG?":
-                show cyno happy glee
-                C "haha. Yes, I suppose."
-                show cyno happy none
-                C "but good, make it embarrassing. I deserve that for not telling you until now."
+                show cyno angry question
+                C "DO YOU HAVE SOMETHING AGAINST DOOOOOOOOOOOOOOOOOOOOOOOGGGGGGGGGGGGGGGGGGGGGGGGSSSSSSSSSSSSSSSSSSSSS"
+                
            
             "I love you so much.":
                 show cyno fear exclamation
@@ -1244,7 +1245,8 @@ label goodending:
                 C "so you wanted it for marriage purposes all this time."
                 show cyno happy
                 C "hah, how ironic."
-        
+        show cyno happy none
+        C "but good, make it embarrassing. I deserve that for not telling you until now."
         show cyno neutral
         C "…well? Shall we get heading now?"
         show cyno happy question

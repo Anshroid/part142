@@ -51,8 +51,8 @@ init python:
                     if self.numAlive() == 1:
                         playerDecision = (1, 0)
 
-                    if currPerson == 0:
-                        renpy.say(C, str(playerDecision))
+                    #if currPerson == 0:
+                    #    renpy.say(C, str(playerDecision))
 
                     match playerDecision[0]:
                         case 0:
@@ -80,12 +80,12 @@ init python:
             random.shuffle(self.mDeck)
 
             for i in range(self.mNumPlayers):
-                if i == 1:
-                    self.playerCards.append([(1, 3), (2, 3), (3, 3), (4, 3), (5, 3)])
-                else:
-                    self.playerCards.append([])
-                    self.playerCards[i].append(self.mDeck.pop())
-                    self.playerCards[i].append(self.mDeck.pop())
+                #if i == 1:
+                #    self.playerCards.append([(1, 3), (2, 3), (3, 3), (4, 3), (5, 3)])
+                #else:
+                self.playerCards.append([])
+                self.playerCards[i].append(self.mDeck.pop())
+                self.playerCards[i].append(self.mDeck.pop())
 
         def flush(self, hand):
             counts = [0, 0, 0, 0]
@@ -282,6 +282,10 @@ init python:
                     return self.settleDraw(categories[i], i)
 
         def playRound(self):
+            if len(self.mDeck) < 9:
+                renpy.say(C,"HOW MANY CARDS DID YOU EAT.")
+                renpy.say(C,"We can't even play anymore. THERE'S NOT ENOUGH CARDS!")
+                return False
             self.pot = 0
             self.alivePlayers = []
             self.contributions = []
@@ -317,13 +321,19 @@ init python:
 
             for winner in winners:
                 self.mPlayers[winner[0]].changeChips(self.pot//len(winners))
-                renpy.say("Dealer", f"p{winner[0]} won, p0 had {self.playerCards[0]}")
+
+            renpy.say("Dealer", f"{'Cyno' if winner[0] == 0 else 'You'} won, Cyno had {",".join(cardName(i) for i in self.playerCards[0])}")
 
             self.mDeck += self.communityCards
             for hand in self.playerCards:
                 self.mDeck += hand
 
             self.mButton = (self.mButton + 1) % self.mNumPlayers
+
+            for player in self.mPlayers:
+                if player.chips <= self.mSBlind * 2:
+                    return False
+            return True
 
 
     class Player:
@@ -343,9 +353,21 @@ init python:
     class AIPlayer(Player):
         def getAction(self, communityCards, myCards, checkVal, pot):
             action = (random.randint(0, 2), 0)
-            if action[0] == 2:
-                action = (2, renpy.random.randint(0, self.chips))
+            if action[0] == 0:
+                renpy.say(C, "I fold...")
 
+            if action[0] == 1:
+                renpy.say(C, "I'll just check then")
+
+            if action[0] == 2:
+                #raise = renpy.random.randint(0, self.chips)
+                if self.chips >= 1:
+                    action = (2, renpy.random.randint(0,self.chips))
+                    renpy.say(C,f"I raise")
+                else:
+                    action = (1,0)
+                    renpy.say(C,"I fold")
+                
             return action
 
     class UserPlayer(Player):
@@ -356,16 +378,18 @@ init python:
                 ('Fold', (0, 0)),
                 ('Check', (1, 0)),
                 ('Raise', (2, 0))
-            ] + ([('Eat your cards', (0, -1)),] if random.random() > 0.95 or store.eatingUnlocked else []), interact=True, screen='choice')
+            ] + ([('Eat your cards', (0, -1)),] if random.random() > 0.92 or store.eatingUnlocked else []), interact=True, screen='choice')
 
             if action[1] == -1:
                 renpy.music.play("sfx/eating.mp3", channel="sound")
 
-            if action[1] == 42:
-                store.eatingUnlocked = True
+
 
             if action[0] == 2:
                 action = (2, int(renpy.input(f"Raise how much? You have {self.chips}")))
+
+            if action[1] == 42:
+                store.eatingUnlocked = True
 
             return action
 
@@ -385,7 +409,8 @@ init python:
 label poker:
     $ dealer = Dealer([AIPlayer(200), UserPlayer(200)], 0, 5)
 
-    while True:
-        $ dealer.playRound()
+    python:
+        while dealer.playRound():
+            continue
+    return
 
-    pause

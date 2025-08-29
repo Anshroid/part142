@@ -1525,9 +1525,7 @@ define bubble.expand_area = {
 
 # Calendar Screen
 screen calendar(day):
-    python:
-        if not renpy.music.get_playing(channel="sound"):
-            renpy.play("sfx/calendar.mp3", channel="sound")
+    on "show" action Play("sound", "sfx/calendar.mp3")
             
     imagebutton:
         idle Transform(f"calendar/calendar_day{day}.jpg", fit="contain")

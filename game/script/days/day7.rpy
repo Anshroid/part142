@@ -351,11 +351,11 @@ label day7morning:
             
             scene black with fade
             
-            Y "jack… I was just checking in."
-            Y "its just… we are so far in it's too late to ever change my mind."
-            Y "my fate in this universe is sealed… but I'm so unsure of everything. Why, just why am I trying to protect {font=DOSIyagiBoldface.ttf}█████████████{/font}?"
-            Y "jack… things are outside of your control. Remember, its your own life you're living. You're here for a reason, that purpose, its for you to find."
-            Y "…guide yourself forward."
+            L "jack… I was just checking in."
+            J "its just… we are so far in it's too late to ever change my mind."
+            J "my fate in this universe is sealed… but I'm so unsure of everything. Why, just why am I trying to protect {font=DOSIyagiBoldface.ttf}█████████████{/font}?"
+            L "jack… things are outside of your control. Remember, its your own life you're living. You're here for a reason, that purpose, its for you to find."
+            L "…guide yourself forward."
             
             scene roof day 
             show lyney fear

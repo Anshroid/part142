@@ -46,25 +46,28 @@ label day1hangoutcyno:
 
     C "…"
 
-    show cyno neutral
-    C "most people see me as unapproachable because I always look kinda intense. Or boring because I don't like the things they do."
-
+    show cyno neutral question
+    C "That reminds me, how was your first day here?"
+    C "For me, uni isn't fun, and it isn't boring either, it's just ..."
+    C "nothing."
+    show cyno -question
+    C "I always wonder why eeryone else looks like they're having so much fun."
     show cyno sad
-    C "they're not wrong I guess, but they don't know me fully either."
+    C "Do you think I'm doing something wrong?"
 
     menu:
-        "there's more to you than people think, you just don't show it off.":
+        "There's more to life than just Uni, you just haven't experienced it yet.":
             show cyno happy
             $ cyno.points += 1
             play sound point
             C "hmph. Don't go thinking you've earned my trust just because of one good word."
         
-        "you are approachable, but just a bit serious… and boring…":
+        "One word. Clubbing.":
             show cyno sad
-            C "ouch."
+            C "Is that how it is? How boring."
     
     show cyno neutral
-    C "I only brought that up because, despite how I appear, you still wanna talk to me."
+    C "I only brought that up because, despite how distant I am, you still wanna talk to me."
     show cyno happy
     C "and to be honest, your company was better than expected."
 

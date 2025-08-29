@@ -10,7 +10,7 @@ label day5morning:
     with fade
 
     M "there you are!"
-
+    #show silhouette
     menu:
         "what happened to hi hello how are you?":
             show miku neutral none
@@ -611,7 +611,7 @@ label day5evening:
         # [from this point onwards, a low hum sound should build up, no music or muffled music, an occasional shaky static/glitch effect on the screen]
 
         # [each decision changes BG to the respective location, a filter should be applied to give a dark eerie feel to the location, in the corners or shadows of the image there should be a faint, small silhouette of a whisper, not immediately obvious or observable though]
-        
+        #show silhouette
         default bad_ending_searched = set()
 
         menu .bad_ending_search:
@@ -646,7 +646,7 @@ label day5evening:
         # [BG change - hallway, silhouette appearance looks more obvious now, still same effect as before, maybe more frequent and intensified]
         
         Y "{i}the atmosphere feels even heavier than before.{/i}"
-        Y "{i}I can make out something in the distance, like its moving closer toward me before I can even move myself.{/i}"
+        #Y "{i}I can make out something in the distance, like its moving closer toward me before I can even move myself.{/i}"
         
         Q "Jack…"
         
@@ -695,7 +695,7 @@ label day5evening:
         
         # [BG change to silhouette glitching closer/enlarging, this instance it should be near towards covering the entire screen]
         
-        Y "{i}the presence of the silhouette is suffocating, I feel like I'm losing all control{/i}"
+        #Y "{i}the presence of the silhouette is suffocating, I feel like I'm losing all control{/i}"
         
         Q "the truth you vowed to seek remains far out of reach."
         

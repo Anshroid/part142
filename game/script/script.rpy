@@ -4,13 +4,14 @@
 # [\s"]i(?:'[md]|ve|ll)?[\s]|[\s"][Ii](?:[md]|ve|ll)[\s]|["\s]hes\s|\w(?:{/i})?"|nt\s
 
 label start:
-    scene casino
-    show cyno happy
-    with fade
+    #call day5
+    #scene casino
+    #show cyno happy
+    #with fade
 
-    call poker
+    #call poker
 label prologue:
-    scene black with fade
+    scene prologue
     J "Somewhere, sometime in this new univers…"
     J "ity, this new university that I'm transferring to."
     J "Oh right, my name is Jack Cruise! I am the new exchange student here for-"
